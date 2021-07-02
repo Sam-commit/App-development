@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "47712273839",
+    "project_id": "chat-app-da0f2",
+    "storage_bucket": "chat-app-da0f2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:47712273839:android:93263eeaeef143f1cf9b5a",
+        "android_client_info": {
+          "package_name": "co.samarth.chatty"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "47712273839-57paflkahk5vo68p8nkh502f3c5lk6st.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAaDlxUSEMELeHrM8rv5paWaN1z7rKAVzs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "47712273839-57paflkahk5vo68p8nkh502f3c5lk6st.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
