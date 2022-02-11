@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'add_task_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -72,7 +73,12 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+
+            showModalBottomSheet(context: context, builder: (context)=> AddTaskScreen());
+
+
+        },
         child: Icon(Icons.add),
       ),
     );
