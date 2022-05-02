@@ -1,14 +1,19 @@
+import 'package:companion/function.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'add_task_screen.dart';
+import 'task_tile.dart';
+import 'task.dart';
+import 'function.dart';
+import 'package:provider/provider.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class HomePage extends StatelessWidget {
+  bool ischeck = false;
 
-  @override
-  _HomePageState createState() => _HomePageState();
-}
+  void check(bool val) {
+    val = !val;
+  }
 
-class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +58,7 @@ class _HomePageState extends State<HomePage> {
           Padding(
             padding: const EdgeInsets.only(left: 30, bottom: 30),
             child: Text(
-              "12 Tasks remaining ",
+              "${Provider.of<functions>(context).tasks.length.toString()} Tasks",
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 16,
@@ -67,20 +72,62 @@ class _HomePageState extends State<HomePage> {
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(30)),
                   color: Colors.white),
-              child: ListView(),
+              child: Task_List(),
             ),
           )
         ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-
-            showModalBottomSheet(context: context, builder: (context)=> AddTaskScreen());
-
-
+          showModalBottomSheet(
+              context: context, builder: (context) => AddTaskScreen());
         },
         child: Icon(Icons.add),
       ),
+    );
+  }
+}
+
+class Task_List extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<functions>(
+      builder: (context, taskData, child) {
+        return ListView.builder(
+          itemCount: taskData.tasks.length,
+          itemBuilder: (BuildContext context, int index) {
+            return GestureDetector(
+              onLongPress: () {
+                showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                          content: Text("Do you want to remove task ?"),
+                          actions: [
+                            TextButton(onPressed: () {
+
+                              Provider.of<functions>(context,listen: false).deleteTask(index);
+                              Navigator.pop(context);
+
+                            }, child: Text("Yes")),
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text("No")),
+                          ],
+                        ));
+              },
+              child: TaskTile(
+                task: taskData.tasks[index].task,
+                isdone: taskData.tasks[index].isdone,
+                callback: (val) {
+                  taskData.toggleTask(taskData.tasks[index]);
+                },
+              ),
+            );
+          },
+        );
+      },
     );
   }
 }

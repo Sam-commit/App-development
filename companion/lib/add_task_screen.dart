@@ -1,8 +1,13 @@
+import 'package:companion/task.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'function.dart';
+import 'homepage.dart';
 
 class AddTaskScreen extends StatelessWidget {
-  const AddTaskScreen({Key? key}) : super(key: key);
+
+  String task="";
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +33,9 @@ class AddTaskScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: TextField(
+                onChanged: (val){
+                  task=val;
+                },
                 decoration: InputDecoration(
                   focusColor: Colors.blue,
                 ),
@@ -40,7 +48,12 @@ class AddTaskScreen extends StatelessWidget {
                   height: 50,
                   width: MediaQuery.of(context).size.width,
                   child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+
+                        Provider.of<functions>(context,listen: false).addTask(task);
+                        Navigator.pop(context);
+
+                      },
                       child: Text(
                         "Add",
                         style: TextStyle(fontSize: 20),
